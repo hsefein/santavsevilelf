@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7406837B1BABD05E00000DC3 /* background1.png in Resources */ = {isa = PBXBuildFile; fileRef = 740683771BABD05E00000DC3 /* background1.png */; settings = {ASSET_TAGS = (); }; };
+		7406837C1BABD05E00000DC3 /* present.png in Resources */ = {isa = PBXBuildFile; fileRef = 740683781BABD05E00000DC3 /* present.png */; settings = {ASSET_TAGS = (); }; };
+		7406837D1BABD05E00000DC3 /* enemy.png in Resources */ = {isa = PBXBuildFile; fileRef = 740683791BABD05E00000DC3 /* enemy.png */; settings = {ASSET_TAGS = (); }; };
+		7406837E1BABD05E00000DC3 /* sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7406837A1BABD05E00000DC3 /* sprites.atlas */; settings = {ASSET_TAGS = (); }; };
+		740683841BABD06800000DC3 /* backgroundMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 740683801BABD06800000DC3 /* backgroundMusic.mp3 */; settings = {ASSET_TAGS = (); }; };
+		740683851BABD06800000DC3 /* hitCat.wav in Resources */ = {isa = PBXBuildFile; fileRef = 740683811BABD06800000DC3 /* hitCat.wav */; settings = {ASSET_TAGS = (); }; };
+		740683861BABD06800000DC3 /* lose.wav in Resources */ = {isa = PBXBuildFile; fileRef = 740683821BABD06800000DC3 /* lose.wav */; settings = {ASSET_TAGS = (); }; };
+		740683871BABD06800000DC3 /* win.wav in Resources */ = {isa = PBXBuildFile; fileRef = 740683831BABD06800000DC3 /* win.wav */; settings = {ASSET_TAGS = (); }; };
+		740683891BAD7DE200000DC3 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740683881BAD7DE200000DC3 /* Utils.swift */; settings = {ASSET_TAGS = (); }; };
 		743990951BAB64AC00CBFA85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743990941BAB64AC00CBFA85 /* AppDelegate.swift */; };
 		743990971BAB64AC00CBFA85 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 743990961BAB64AC00CBFA85 /* GameScene.sks */; };
 		743990991BAB64AC00CBFA85 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743990981BAB64AC00CBFA85 /* GameScene.swift */; };
@@ -36,6 +45,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		740683771BABD05E00000DC3 /* background1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background1.png; sourceTree = "<group>"; };
+		740683781BABD05E00000DC3 /* present.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = present.png; sourceTree = "<group>"; };
+		740683791BABD05E00000DC3 /* enemy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemy.png; sourceTree = "<group>"; };
+		7406837A1BABD05E00000DC3 /* sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sprites.atlas; sourceTree = "<group>"; };
+		740683801BABD06800000DC3 /* backgroundMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = backgroundMusic.mp3; sourceTree = "<group>"; };
+		740683811BABD06800000DC3 /* hitCat.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hitCat.wav; sourceTree = "<group>"; };
+		740683821BABD06800000DC3 /* lose.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = lose.wav; sourceTree = "<group>"; };
+		740683831BABD06800000DC3 /* win.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = win.wav; sourceTree = "<group>"; };
+		740683881BAD7DE200000DC3 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		743990911BAB64AC00CBFA85 /* SantaVsEvilElf.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SantaVsEvilElf.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		743990941BAB64AC00CBFA85 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		743990961BAB64AC00CBFA85 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -78,6 +96,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		740683761BABD05D00000DC3 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				7406837F1BABD06800000DC3 /* sounds */,
+				740683771BABD05E00000DC3 /* background1.png */,
+				740683781BABD05E00000DC3 /* present.png */,
+				740683791BABD05E00000DC3 /* enemy.png */,
+				7406837A1BABD05E00000DC3 /* sprites.atlas */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
+		7406837F1BABD06800000DC3 /* sounds */ = {
+			isa = PBXGroup;
+			children = (
+				740683801BABD06800000DC3 /* backgroundMusic.mp3 */,
+				740683811BABD06800000DC3 /* hitCat.wav */,
+				740683821BABD06800000DC3 /* lose.wav */,
+				740683831BABD06800000DC3 /* win.wav */,
+			);
+			path = sounds;
+			sourceTree = "<group>";
+		};
 		743990881BAB64AC00CBFA85 = {
 			isa = PBXGroup;
 			children = (
@@ -101,9 +142,11 @@
 		743990931BAB64AC00CBFA85 /* SantaVsEvilElf */ = {
 			isa = PBXGroup;
 			children = (
+				740683761BABD05D00000DC3 /* images */,
 				743990941BAB64AC00CBFA85 /* AppDelegate.swift */,
 				743990961BAB64AC00CBFA85 /* GameScene.sks */,
 				743990981BAB64AC00CBFA85 /* GameScene.swift */,
+				740683881BAD7DE200000DC3 /* Utils.swift */,
 				7439909A1BAB64AC00CBFA85 /* GameViewController.swift */,
 				7439909C1BAB64AC00CBFA85 /* Main.storyboard */,
 				7439909F1BAB64AC00CBFA85 /* Assets.xcassets */,
@@ -234,9 +277,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7406837C1BABD05E00000DC3 /* present.png in Resources */,
+				740683851BABD06800000DC3 /* hitCat.wav in Resources */,
 				743990971BAB64AC00CBFA85 /* GameScene.sks in Resources */,
+				740683841BABD06800000DC3 /* backgroundMusic.mp3 in Resources */,
+				7406837E1BABD05E00000DC3 /* sprites.atlas in Resources */,
+				7406837D1BABD05E00000DC3 /* enemy.png in Resources */,
 				743990A31BAB64AC00CBFA85 /* LaunchScreen.storyboard in Resources */,
+				740683861BABD06800000DC3 /* lose.wav in Resources */,
 				743990A01BAB64AC00CBFA85 /* Assets.xcassets in Resources */,
+				740683871BABD06800000DC3 /* win.wav in Resources */,
+				7406837B1BABD05E00000DC3 /* background1.png in Resources */,
 				7439909E1BAB64AC00CBFA85 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -265,6 +316,7 @@
 				743990991BAB64AC00CBFA85 /* GameScene.swift in Sources */,
 				7439909B1BAB64AC00CBFA85 /* GameViewController.swift in Sources */,
 				743990951BAB64AC00CBFA85 /* AppDelegate.swift in Sources */,
+				740683891BAD7DE200000DC3 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -493,6 +545,7 @@
 				743990BF1BAB64AC00CBFA85 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		743990C01BAB64AC00CBFA85 /* Build configuration list for PBXNativeTarget "SantaVsEvilElfTests" */ = {
 			isa = XCConfigurationList;
@@ -501,6 +554,7 @@
 				743990C21BAB64AC00CBFA85 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		743990C31BAB64AC00CBFA85 /* Build configuration list for PBXNativeTarget "SantaVsEvilElfUITests" */ = {
 			isa = XCConfigurationList;
@@ -509,6 +563,7 @@
 				743990C51BAB64AC00CBFA85 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
