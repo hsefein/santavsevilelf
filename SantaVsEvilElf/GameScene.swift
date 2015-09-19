@@ -24,6 +24,7 @@ class GameScene: SKScene {
     let enemyCollisionSound: SKAction = SKAction.playSoundFileNamed(
         "hitCatLady.wav", waitForCompletion: false)
     var invincible = false
+    let presentMovePointsPerSec:CGFloat = 480.0
     
     override init(size: CGSize) {
         let maxAspectRatio:CGFloat = 16.0/9.0
@@ -107,6 +108,7 @@ class GameScene: SKScene {
         }
         
         boundsCheckSanta()
+        moveTrain()
         
     }
     
@@ -239,8 +241,15 @@ class GameScene: SKScene {
     }
         
     func santaHitPresent(present: SKSpriteNode) {
-        present.removeFromParent()
         runAction(presentCollisionSound)
+        
+        present.name = "train"
+        present.removeAllActions()
+        present.setScale(1.0)
+        present.zRotation = 0
+        
+        let turnGreen = SKAction.colorizeWithColor(SKColor.greenColor(), colorBlendFactor: 1.0, duration: 0.2)
+        present.runAction(turnGreen)
     }
         
     func santaHitEnemy(enemy: SKSpriteNode) {
@@ -295,6 +304,27 @@ class GameScene: SKScene {
         
     override func didEvaluateActions()  {
         checkCollisions()
+    }
+    
+    func moveTrain() {
+        
+        var targetPosition = santa.position
+        
+        enumerateChildNodesWithName("train") { node, stop in
+            if !node.hasActions() {
+                
+                let actionDuration = 0.3
+                let offset = targetPosition - node.position
+                let direction = offset.normalized()
+                let amountToMovePerSec = direction * self.presentMovePointsPerSec
+                let amountToMove = amountToMovePerSec * CGFloat(actionDuration)
+                let moveAction = SKAction.moveByX(amountToMove.x, y: amountToMove.y, duration: actionDuration)
+                node.runAction(moveAction)
+            }
+            targetPosition = node.position
+            
+        }
+        
     }
     
 }
