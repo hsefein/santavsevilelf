@@ -23,6 +23,7 @@ class GameScene: SKScene {
         "hitCat.wav", waitForCompletion: false)
     let enemyCollisionSound: SKAction = SKAction.playSoundFileNamed(
         "hitCatLady.wav", waitForCompletion: false)
+    var invincible = false
     
     override init(size: CGSize) {
         let maxAspectRatio:CGFloat = 16.0/9.0
@@ -245,6 +246,22 @@ class GameScene: SKScene {
     func santaHitEnemy(enemy: SKSpriteNode) {
         enemy.removeFromParent()
         runAction(enemyCollisionSound)
+        
+        invincible = true
+        
+        let blinkTimes = 10.0
+        let duration = 3.0
+        let blinkAction = SKAction.customActionWithDuration(duration) { node, elapsedTime in
+            let slice = duration / blinkTimes
+            let remainder = Double(elapsedTime) % slice
+            node.hidden = remainder > slice / 2
+        }
+        let setHidden = SKAction.runBlock() {
+            self.santa.hidden = false
+            self.invincible = false
+        }
+        santa.runAction(SKAction.sequence([blinkAction, setHidden]))
+        
     }
         
     func checkCollisions() {
@@ -257,6 +274,10 @@ class GameScene: SKScene {
         }
         for present in hitPresents {
             santaHitPresent(present)
+        }
+        
+        if invincible {
+            return
         }
         
         var hitEnemies: [SKSpriteNode] = []
