@@ -25,6 +25,18 @@ class GameScene: SKScene {
         "hitCatLady.wav", waitForCompletion: false)
     var invincible = false
     let presentMovePointsPerSec:CGFloat = 480.0
+    var scoreLabel: SKLabelNode!
+    var score: Int = 0 {
+        didSet {
+            scoreLabel.text = "Score: \(score)"
+        }
+    }
+    var santaLivies: SKLabelNode!
+    var life: Int = 5 {
+        didSet {
+            santaLivies.text = "Life: \(life)"
+        }
+    }
     
     override init(size: CGSize) {
         let maxAspectRatio:CGFloat = 16.0/9.0
@@ -33,17 +45,16 @@ class GameScene: SKScene {
         playableRect = CGRect(x: 0, y: playableMargin,
             width: size.width,
             height: playableHeight)
-        // 1
+        
         var textures:[SKTexture] = []
-        // 2
+       
         for i in 1...8 {
             textures.append(SKTexture(imageNamed: "santa\(i)"))
         }
-        // 3
+        
         textures.append(textures[2])
         textures.append(textures[1])
         
-        // 4
         santaAnimation = SKAction.repeatActionForever(
             SKAction.animateWithTextures(textures, timePerFrame: 0.1))
         
@@ -82,6 +93,22 @@ class GameScene: SKScene {
         runAction(SKAction.repeatActionForever(
             SKAction.sequence([SKAction.runBlock(spawnPresent),
                 SKAction.waitForDuration(1.0)])))
+        
+        scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
+        scoreLabel.text = "Score: 0"
+        scoreLabel.fontSize = 50
+        scoreLabel.fontColor = UIColor.yellowColor()
+        scoreLabel.horizontalAlignmentMode = .Right
+        scoreLabel.position = CGPoint(x: 2000, y: 1250)
+        addChild(scoreLabel)
+        
+        santaLivies = SKLabelNode(fontNamed: "Chalkduster")
+        santaLivies.text = "Life: 5"
+        santaLivies.fontSize = 50
+        santaLivies.fontColor = UIColor.yellowColor()
+        santaLivies.horizontalAlignmentMode = .Left
+        santaLivies.position = CGPoint(x: 80, y: 1250)
+        addChild(santaLivies)
         
         debugDrawPlayableArea()
     }
@@ -154,7 +181,6 @@ class GameScene: SKScene {
         let topRight = CGPoint(x: size.width,
             y: CGRectGetMaxY(playableRect))
         
-        
         if santa.position.x <= bottomLeft.x {
             santa.position.x = bottomLeft.x
             velocity.x = -velocity.x
@@ -210,7 +236,7 @@ class GameScene: SKScene {
     }
 
     func spawnPresent() {
-        // 1
+        
         let present = SKSpriteNode(imageNamed: "present")
         present.name = "present"
         present.position = CGPoint(
@@ -220,7 +246,7 @@ class GameScene: SKScene {
                 max: CGRectGetMaxY(playableRect)))
         present.setScale(0)
         addChild(present)
-        // 2
+        
         let appear = SKAction.scaleTo(1.0, duration: 0.5)
         
         present.zRotation = -π / 16.0
@@ -250,6 +276,7 @@ class GameScene: SKScene {
         
         let turnGreen = SKAction.colorizeWithColor(SKColor.greenColor(), colorBlendFactor: 1.0, duration: 0.2)
         present.runAction(turnGreen)
+        ++score
     }
         
     func santaHitEnemy(enemy: SKSpriteNode) {
@@ -270,6 +297,7 @@ class GameScene: SKScene {
             self.invincible = false
         }
         santa.runAction(SKAction.sequence([blinkAction, setHidden]))
+        --life
         
     }
         
@@ -299,6 +327,8 @@ class GameScene: SKScene {
         }
         for enemy in hitEnemies {
             santaHitEnemy(enemy)
+            --score
+            
         }
     }
         
