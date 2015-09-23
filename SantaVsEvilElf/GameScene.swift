@@ -48,8 +48,9 @@ class GameScene: SKScene {
         
         var textures:[SKTexture] = []
        
-        for i in 1...8 {
+        for i in 1...17 {
             textures.append(SKTexture(imageNamed: "santa\(i)"))
+            
         }
         
         textures.append(textures[2])
@@ -85,7 +86,7 @@ class GameScene: SKScene {
         addChild(background)
         
         santa.position = CGPoint(x: 400, y: 400)
-        //zombie.runAction(SKAction.repeatActionForever(santaAnimation))
+//        santa.setScale(2.0)
         addChild(santa)
         runAction(SKAction.repeatActionForever(
             SKAction.sequence([SKAction.runBlock(spawnEnemy),
@@ -94,18 +95,18 @@ class GameScene: SKScene {
             SKAction.sequence([SKAction.runBlock(spawnPresent),
                 SKAction.waitForDuration(1.0)])))
         
-        scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
+        scoreLabel = SKLabelNode(fontNamed: "Helvetica Neue Bold")
         scoreLabel.text = "Score: 0"
         scoreLabel.fontSize = 50
-        scoreLabel.fontColor = UIColor.yellowColor()
+        scoreLabel.fontColor = SKColor.yellowColor()
         scoreLabel.horizontalAlignmentMode = .Right
         scoreLabel.position = CGPoint(x: 2000, y: 1250)
         addChild(scoreLabel)
         
-        santaLivies = SKLabelNode(fontNamed: "Chalkduster")
+        santaLivies = SKLabelNode(fontNamed: "Helvetica Neue Bold")
         santaLivies.text = "Life: 5"
         santaLivies.fontSize = 50
-        santaLivies.fontColor = UIColor.yellowColor()
+        santaLivies.fontColor = SKColor.yellowColor()
         santaLivies.horizontalAlignmentMode = .Left
         santaLivies.position = CGPoint(x: 80, y: 1250)
         addChild(santaLivies)
@@ -213,6 +214,12 @@ class GameScene: SKScene {
             y: CGFloat.random(
                 min: CGRectGetMinY(playableRect) + enemy.size.height/2,
                 max: CGRectGetMaxY(playableRect) - enemy.size.height/2))
+        
+//        var textures2:[SKTexture] = []
+//        
+//        for i in 1...17 {
+//            textures2.append(SKTexture(imageNamed: "yetti\(i)"))
+        
         addChild(enemy)
         
         let actionMove =
