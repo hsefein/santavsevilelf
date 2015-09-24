@@ -26,6 +26,7 @@ class GameScene: SKScene {
     var invincible = false
     let presentMovePointsPerSec:CGFloat = 480.0
     var scoreLabel: SKLabelNode!
+    var gameOver = false
     var score: Int = 0 {
         didSet {
             scoreLabel.text = "Score: \(score)"
@@ -77,6 +78,7 @@ class GameScene: SKScene {
     }
     
     override func didMoveToView(view: SKView) {
+//        backgroundMusic("backgroundmusic.mp3")
         backgroundColor = SKColor.whiteColor()
         
         let background = SKSpriteNode(imageNamed: "background1")
@@ -86,7 +88,6 @@ class GameScene: SKScene {
         addChild(background)
         
         santa.position = CGPoint(x: 400, y: 400)
-//        santa.setScale(2.0)
         addChild(santa)
         runAction(SKAction.repeatActionForever(
             SKAction.sequence([SKAction.runBlock(spawnEnemy),
@@ -98,20 +99,22 @@ class GameScene: SKScene {
         scoreLabel = SKLabelNode(fontNamed: "Helvetica Neue Bold")
         scoreLabel.text = "Score: 0"
         scoreLabel.fontSize = 50
-        scoreLabel.fontColor = SKColor.yellowColor()
+        scoreLabel.fontColor = SKColor.greenColor()
         scoreLabel.horizontalAlignmentMode = .Right
         scoreLabel.position = CGPoint(x: 2000, y: 1250)
+        scoreLabel.zPosition = 1
         addChild(scoreLabel)
         
         santaLivies = SKLabelNode(fontNamed: "Helvetica Neue Bold")
         santaLivies.text = "Life: 5"
         santaLivies.fontSize = 50
-        santaLivies.fontColor = SKColor.yellowColor()
+        santaLivies.fontColor = SKColor.greenColor()
         santaLivies.horizontalAlignmentMode = .Left
         santaLivies.position = CGPoint(x: 80, y: 1250)
+        santaLivies.zPosition = 1
         addChild(santaLivies)
         
-        debugDrawPlayableArea()
+//        debugDrawPlayableArea()
     }
     
     override func update(currentTime: NSTimeInterval) {
@@ -138,6 +141,16 @@ class GameScene: SKScene {
         boundsCheckSanta()
         moveTrain()
         
+        if life <= 0 && !gameOver {
+        gameOver = true
+//        backgroundMusic.stop()
+            
+            let gameOverScene = GameOver(size: size, won: false)
+            gameOverScene.scaleMode = scaleMode
+            
+            let reveal = SKTransition.flipHorizontalWithDuration(0.5)
+            view?.presentScene(gameOverScene, transition: reveal)
+        }
     }
     
     func moveSprite(sprite: SKSpriteNode, velocity: CGPoint) {
@@ -215,11 +228,6 @@ class GameScene: SKScene {
                 min: CGRectGetMinY(playableRect) + enemy.size.height/2,
                 max: CGRectGetMaxY(playableRect) - enemy.size.height/2))
         
-//        var textures2:[SKTexture] = []
-//        
-//        for i in 1...17 {
-//            textures2.append(SKTexture(imageNamed: "yetti\(i)"))
-        
         addChild(enemy)
         
         let actionMove =
@@ -281,14 +289,16 @@ class GameScene: SKScene {
         present.setScale(1.0)
         present.zRotation = 0
         
-        let turnGreen = SKAction.colorizeWithColor(SKColor.greenColor(), colorBlendFactor: 1.0, duration: 0.2)
-        present.runAction(turnGreen)
-        ++score
+        let changePresent = SKAction.colorizeWithColor(SKColor.cyanColor(), colorBlendFactor: 1.0, duration: 0.2)
+        present.runAction(changePresent)
+        score++
     }
         
     func santaHitEnemy(enemy: SKSpriteNode) {
         enemy.removeFromParent()
         runAction(enemyCollisionSound)
+        
+        life--
         
         invincible = true
         
@@ -304,8 +314,6 @@ class GameScene: SKScene {
             self.invincible = false
         }
         santa.runAction(SKAction.sequence([blinkAction, setHidden]))
-        --life
-        
     }
         
     func checkCollisions() {
@@ -334,7 +342,7 @@ class GameScene: SKScene {
         }
         for enemy in hitEnemies {
             santaHitEnemy(enemy)
-            --score
+            score--
             
         }
     }
@@ -362,6 +370,47 @@ class GameScene: SKScene {
             
         }
         
+        if score >= 10 && !gameOver {
+            gameOver = true
+//            backgroundMusicPlayer.stop()
+    
+            
+            let gameOverScene = GameOver(size: size, won: true)
+            gameOverScene.scaleMode = scaleMode
+           
+            let reveal = SKTransition.flipHorizontalWithDuration(0.5)
+           
+            view?.presentScene(gameOverScene, transition: reveal)
+        }
+        
     }
+    
+//    func losePresents() {
+//        
+//        var loseCount = 0
+//        enumerateChildNodesWithName("train") { node, stop in
+//            
+//            var randomSpot = node.position
+//            randomSpot.x += CGFloat.random(min: -100, max: 100)
+//            randomSpot.y += CGFloat.random(min: -100, max: 100)
+//           
+//            node.name = ""
+//            node.runAction(
+//                SKAction.sequence([
+//                    SKAction.group([
+//                        SKAction.rotateByAngle(π*4, duration: 1.0),
+//                        SKAction.moveTo(randomSpot, duration: 1.0),
+//                        SKAction.scaleTo(0, duration: 1.0)
+//                        ]),
+//                    SKAction.removeFromParent()
+//                    ]))
+//            
+//            loseCount++
+//            if loseCount >= 1 {
+//                stop.memory = true
+//            }
+//        }
+//    
+//    }
     
 }

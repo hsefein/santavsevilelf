@@ -16,6 +16,7 @@
 		740683871BABD06800000DC3 /* win.wav in Resources */ = {isa = PBXBuildFile; fileRef = 740683831BABD06800000DC3 /* win.wav */; settings = {ASSET_TAGS = (); }; };
 		740683891BAD7DE200000DC3 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740683881BAD7DE200000DC3 /* Utils.swift */; settings = {ASSET_TAGS = (); }; };
 		740683931BB33C4E00000DC3 /* enemy.png in Resources */ = {isa = PBXBuildFile; fileRef = 740683921BB33C4E00000DC3 /* enemy.png */; settings = {ASSET_TAGS = (); }; };
+		740683971BB475F500000DC3 /* GameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740683961BB475F500000DC3 /* GameOver.swift */; settings = {ASSET_TAGS = (); }; };
 		743990951BAB64AC00CBFA85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743990941BAB64AC00CBFA85 /* AppDelegate.swift */; };
 		743990971BAB64AC00CBFA85 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 743990961BAB64AC00CBFA85 /* GameScene.sks */; };
 		743990991BAB64AC00CBFA85 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743990981BAB64AC00CBFA85 /* GameScene.swift */; };
@@ -54,6 +55,7 @@
 		740683831BABD06800000DC3 /* win.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = win.wav; sourceTree = "<group>"; };
 		740683881BAD7DE200000DC3 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		740683921BB33C4E00000DC3 /* enemy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemy.png; sourceTree = "<group>"; };
+		740683961BB475F500000DC3 /* GameOver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOver.swift; sourceTree = "<group>"; };
 		743990911BAB64AC00CBFA85 /* SantaVsEvilElf.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SantaVsEvilElf.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		743990941BAB64AC00CBFA85 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		743990961BAB64AC00CBFA85 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 				743990941BAB64AC00CBFA85 /* AppDelegate.swift */,
 				743990961BAB64AC00CBFA85 /* GameScene.sks */,
 				743990981BAB64AC00CBFA85 /* GameScene.swift */,
+				740683961BB475F500000DC3 /* GameOver.swift */,
 				740683881BAD7DE200000DC3 /* Utils.swift */,
 				7439909A1BAB64AC00CBFA85 /* GameViewController.swift */,
 				7439909C1BAB64AC00CBFA85 /* Main.storyboard */,
@@ -316,6 +319,7 @@
 				743990991BAB64AC00CBFA85 /* GameScene.swift in Sources */,
 				7439909B1BAB64AC00CBFA85 /* GameViewController.swift in Sources */,
 				743990951BAB64AC00CBFA85 /* AppDelegate.swift in Sources */,
+				740683971BB475F500000DC3 /* GameOver.swift in Sources */,
 				740683891BAD7DE200000DC3 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
