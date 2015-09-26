@@ -147,9 +147,9 @@ class GameScene: SKScene {
         boundsCheckSanta()
         moveTrain()
         
-        if life <= 0 && !gameOver {
+        if life <= 3 && !gameOver {
         gameOver = true
-        backgroundMusic.stop()
+        backgroundMusicP.stop()
             
             let gameOverScene = GameOver(size: size, won: false)
             gameOverScene.scaleMode = scaleMode
@@ -376,9 +376,9 @@ class GameScene: SKScene {
             
         }
         
-        if score >= 10 && !gameOver {
+        if score >= 5 && !gameOver {
             gameOver = true
-            backgroundMusic.stop()
+            backgroundMusicP.stop()
     
             
             let gameOverScene = GameOver(size: size, won: true)
