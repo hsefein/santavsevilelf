@@ -114,6 +114,37 @@ extension CGFloat {
     }
 }
 
+import AVFoundation
+
+var backgroundMusic: AVAudioPlayer!
+
+func playBackgroundMusic(filename: String) {
+    let url = NSBundle.mainBundle().URLForResource(
+        filename, withExtension: nil)
+    if (url == nil) {
+        print("Could not find file: \(filename)", terminator: "")
+        return
+    }
+    
+    var error: NSError?
+    
+    do {
+        backgroundMusic =
+            try AVAudioPlayer(contentsOfURL: url!)
+    } catch {
+        
+        backgroundMusic = nil
+    }
+    if backgroundMusic == nil {
+        print("Could not create audio player: \(error!)")
+        return
+    }
+    
+    backgroundMusic.numberOfLoops = -1
+    backgroundMusic.prepareToPlay()
+    backgroundMusic.play()
+}
+
 
 
 

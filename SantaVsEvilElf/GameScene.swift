@@ -7,10 +7,14 @@
 //
 
 import SpriteKit
+import AVFoundation
 
 class GameScene: SKScene {
     
     let santa: SKSpriteNode = SKSpriteNode(imageNamed: "santa1")
+    
+    var backgroundMusic:AVAudioPlayer = AVAudioPlayer()
+    
     var lastUpdateTime: NSTimeInterval = 0
     var dt: NSTimeInterval = 0
     let santaMovePointsPerSec: CGFloat = 480.0
@@ -77,8 +81,10 @@ class GameScene: SKScene {
         addChild(shape)
     }
     
+
     override func didMoveToView(view: SKView) {
-//        backgroundMusic("backgroundmusic.mp3")
+      playBackgroundMusic("jb.mp3")
+        
         backgroundColor = SKColor.whiteColor()
         
         let background = SKSpriteNode(imageNamed: "background1")
@@ -143,7 +149,7 @@ class GameScene: SKScene {
         
         if life <= 0 && !gameOver {
         gameOver = true
-//        backgroundMusic.stop()
+        backgroundMusic.stop()
             
             let gameOverScene = GameOver(size: size, won: false)
             gameOverScene.scaleMode = scaleMode
@@ -372,7 +378,7 @@ class GameScene: SKScene {
         
         if score >= 10 && !gameOver {
             gameOver = true
-//            backgroundMusicPlayer.stop()
+            backgroundMusic.stop()
     
             
             let gameOverScene = GameOver(size: size, won: true)
