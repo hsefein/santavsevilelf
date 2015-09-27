@@ -30,6 +30,9 @@ class GameScene: SKScene {
     var invincible = false
     let presentMovePointsPerSec:CGFloat = 480.0
     var scoreLabel: SKLabelNode!
+    let backgroundMovePointsPerSec: CGFloat = 200.0
+    let backgroundLayer = SKNode()
+
     var gameOver = false
     var score: Int = 0 {
         didSet {
@@ -53,7 +56,7 @@ class GameScene: SKScene {
         
         var textures:[SKTexture] = []
        
-        for i in 1...17 {
+        for i in 1...10 {
             textures.append(SKTexture(imageNamed: "santa\(i)"))
             
         }
@@ -81,20 +84,24 @@ class GameScene: SKScene {
         addChild(shape)
     }
     
-
     override func didMoveToView(view: SKView) {
-      playBackgroundMusic("jb.mp3")
-        
+        playBackgroundMusic("jb.mp3")
+        backgroundLayer.zPosition = -1
+        addChild(backgroundLayer)
         backgroundColor = SKColor.whiteColor()
         
-        let background = SKSpriteNode(imageNamed: "background1")
-        background.position = CGPoint(x: size.width/2, y: size.height/2)
-        background.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        background.zPosition = -1
-        addChild(background)
+        for i in 0...1 {
+        let background = backgroundNode()
+        background.anchorPoint = CGPointZero
+        background.position = CGPoint(x: CGFloat(i)*background.size.width, y: 0)
+        background.name = "background"
+        backgroundLayer.addChild(background)
+        }
         
         santa.position = CGPoint(x: 400, y: 400)
-        addChild(santa)
+        santa.zPosition = 100
+        backgroundLayer.addChild(santa)
+        
         runAction(SKAction.repeatActionForever(
             SKAction.sequence([SKAction.runBlock(spawnEnemy),
                 SKAction.waitForDuration(2.0)])))
@@ -105,7 +112,7 @@ class GameScene: SKScene {
         scoreLabel = SKLabelNode(fontNamed: "Helvetica Neue Bold")
         scoreLabel.text = "Score: 0"
         scoreLabel.fontSize = 50
-        scoreLabel.fontColor = SKColor.greenColor()
+        scoreLabel.fontColor = SKColor.redColor()
         scoreLabel.horizontalAlignmentMode = .Right
         scoreLabel.position = CGPoint(x: 2000, y: 1250)
         scoreLabel.zPosition = 1
@@ -114,13 +121,36 @@ class GameScene: SKScene {
         santaLivies = SKLabelNode(fontNamed: "Helvetica Neue Bold")
         santaLivies.text = "Life: 5"
         santaLivies.fontSize = 50
-        santaLivies.fontColor = SKColor.greenColor()
+        santaLivies.fontColor = SKColor.redColor()
         santaLivies.horizontalAlignmentMode = .Left
         santaLivies.position = CGPoint(x: 80, y: 1250)
         santaLivies.zPosition = 1
         addChild(santaLivies)
         
 //        debugDrawPlayableArea()
+    }
+    
+    func backgroundNode() -> SKSpriteNode {
+        
+        let backgroundNode = SKSpriteNode()
+        backgroundNode.anchorPoint = CGPointZero
+        backgroundNode.name = "background"
+        
+        let background1 = SKSpriteNode(imageNamed: "background1")
+        background1.anchorPoint = CGPointZero
+        background1.position = CGPoint(x: 0, y: 0)
+        backgroundNode.addChild(background1)
+        
+        let background2 = SKSpriteNode(imageNamed: "background2")
+        background2.anchorPoint = CGPointZero
+        background2.position =
+            CGPoint(x: background1.size.width, y: 0)
+        backgroundNode.addChild(background2)
+        
+        backgroundNode.size = CGSize(
+            width: background1.size.width + background2.size.width,
+            height: background1.size.height)
+        return backgroundNode
     }
     
     override func update(currentTime: NSTimeInterval) {
@@ -134,20 +164,22 @@ class GameScene: SKScene {
         
         if let lastTouch = lastTouchLocation {
             let diff = lastTouch - santa.position
-            if (diff.length() <= santaMovePointsPerSec * CGFloat(dt)) {
-                santa.position = lastTouchLocation!
-                velocity = CGPointZero
-                stopSantaAnimation()
-            } else {
-                moveSprite(santa, velocity: velocity)
-                rotateSprite(santa, direction: velocity, rotateRadiansPerSec: santaRotateRadiansPerSec)
-            }
+            /*if (diff.length() <= santaMovePointsPerSec * CGFloat(dt)) {
+            santa.position = lastTouchLocation!
+            velocity = CGPointZero
+            stopSantaAnimation()
+            } else {*/
+            moveSprite(santa, velocity: velocity)
+            rotateSprite(santa, direction: velocity, rotateRadiansPerSec: santaRotateRadiansPerSec)
+            //}
         }
         
         boundsCheckSanta()
         moveTrain()
+        moveBackground()
+    
         
-        if life <= 3 && !gameOver {
+        if life <= 0 && !gameOver {
         gameOver = true
         backgroundMusicP.stop()
             
@@ -179,7 +211,7 @@ class GameScene: SKScene {
     override func touchesBegan(touches: Set<UITouch>,
         withEvent event: UIEvent?) {
             if let touch = touches.first {
-                let touchLocation = touch.locationInNode(self)
+                let touchLocation = touch.locationInNode(backgroundLayer)
                 sceneTouched(touchLocation)
             }
             super.touchesMoved(touches, withEvent: event)
@@ -188,7 +220,7 @@ class GameScene: SKScene {
     override func touchesMoved(touches: Set<UITouch>,
         withEvent event: UIEvent?) {
             if let touch = touches.first {
-                let touchLocation = touch.locationInNode(self)
+                let touchLocation = touch.locationInNode(backgroundLayer)
                 sceneTouched(touchLocation)
             }
             super.touchesMoved(touches, withEvent: event)
@@ -196,10 +228,9 @@ class GameScene: SKScene {
     }
     
     func boundsCheckSanta() {
-        let bottomLeft = CGPoint(x: 0,
-            y: CGRectGetMinY(playableRect))
-        let topRight = CGPoint(x: size.width,
-            y: CGRectGetMaxY(playableRect))
+        let bottomLeft = backgroundLayer.convertPoint( CGPoint(x: 0, y: CGRectGetMinY(playableRect)), fromNode: self)
+        let topRight = backgroundLayer.convertPoint(
+            CGPoint(x: size.width, y: CGRectGetMaxY(playableRect)), fromNode: self)
         
         if santa.position.x <= bottomLeft.x {
             santa.position.x = bottomLeft.x
@@ -228,13 +259,14 @@ class GameScene: SKScene {
     func spawnEnemy() {
         let enemy = SKSpriteNode(imageNamed: "enemy")
         enemy.name = "enemy"
-        enemy.position = CGPoint(
+        enemy.zPosition = 100
+        let enemyScenePos = CGPoint(
             x: size.width + enemy.size.width/2,
             y: CGFloat.random(
                 min: CGRectGetMinY(playableRect) + enemy.size.height/2,
                 max: CGRectGetMaxY(playableRect) - enemy.size.height/2))
-        
-        addChild(enemy)
+        enemy.position = backgroundLayer.convertPoint(enemyScenePos, fromNode: self)
+        backgroundLayer.addChild(enemy)
         
         let actionMove =
         SKAction.moveToX(-enemy.size.width/2, duration: 2.0)
@@ -260,13 +292,15 @@ class GameScene: SKScene {
         
         let present = SKSpriteNode(imageNamed: "present")
         present.name = "present"
-        present.position = CGPoint(
+        present.zPosition = 100
+        let presentScenePos = CGPoint(
             x: CGFloat.random(min: CGRectGetMinX(playableRect),
-                max: CGRectGetMaxX(playableRect)),
+                              max: CGRectGetMaxX(playableRect)),
             y: CGFloat.random(min: CGRectGetMinY(playableRect),
-                max: CGRectGetMaxY(playableRect)))
+                              max: CGRectGetMaxY(playableRect)))
+        present.position = backgroundLayer.convertPoint(presentScenePos, fromNode: self)
         present.setScale(0)
-        addChild(present)
+        backgroundLayer.addChild(present)
         
         let appear = SKAction.scaleTo(1.0, duration: 0.5)
         
@@ -324,7 +358,7 @@ class GameScene: SKScene {
         
     func checkCollisions() {
         var hitPresents: [SKSpriteNode] = []
-        enumerateChildNodesWithName("present") { node, _ in
+        backgroundLayer.enumerateChildNodesWithName("present") { node, _ in
             let present = node as! SKSpriteNode
             if CGRectIntersectsRect(present.frame, self.santa.frame) {
                 hitPresents.append(present)
@@ -339,17 +373,16 @@ class GameScene: SKScene {
         }
         
         var hitEnemies: [SKSpriteNode] = []
-        enumerateChildNodesWithName("enemy") { node, _ in
+        backgroundLayer.enumerateChildNodesWithName("enemy") { node, _ in
             let enemy = node as! SKSpriteNode
             if CGRectIntersectsRect(
                 CGRectInset(node.frame, 20, 20), self.santa.frame) {
-                    hitEnemies.append(enemy)
+                hitEnemies.append(enemy)
             }
         }
         for enemy in hitEnemies {
             santaHitEnemy(enemy)
             score--
-            
         }
     }
         
@@ -360,8 +393,11 @@ class GameScene: SKScene {
     func moveTrain() {
         
         var targetPosition = santa.position
+        var trainCount = 0
         
-        enumerateChildNodesWithName("train") { node, stop in
+        backgroundLayer.enumerateChildNodesWithName("train") { node, stop in
+        trainCount++
+            
             if !node.hasActions() {
                 
                 let actionDuration = 0.3
@@ -376,11 +412,10 @@ class GameScene: SKScene {
             
         }
         
-        if score >= 5 && !gameOver {
+        if score >= 30 && !gameOver {
             gameOver = true
             backgroundMusicP.stop()
-    
-            
+        
             let gameOverScene = GameOver(size: size, won: true)
             gameOverScene.scaleMode = scaleMode
            
@@ -388,13 +423,31 @@ class GameScene: SKScene {
            
             view?.presentScene(gameOverScene, transition: reveal)
         }
+    }
+    
+    func moveBackground() {
+        let backgroundVelocity =
+        CGPoint(x: -backgroundMovePointsPerSec, y: 0)
+        let amountToMove = backgroundVelocity * CGFloat(dt)
+        backgroundLayer.position += amountToMove
         
+        backgroundLayer.enumerateChildNodesWithName("background") {
+            node, _ in
+            let background = node as! SKSpriteNode
+            let backgroundScreenPos = self.backgroundLayer.convertPoint(
+                background.position, toNode: self)
+            if backgroundScreenPos.x <= -background.size.width {
+                    background.position = CGPoint(
+                x: background.position.x + background.size.width*2,
+                y: background.position.y)
+            }
+        }
     }
     
 //    func losePresents() {
 //        
 //        var loseCount = 0
-//        enumerateChildNodesWithName("train") { node, stop in
+//        backgroundLayer.enumerateChildNodesWithName("train") { node, stop in
 //            
 //            var randomSpot = node.position
 //            randomSpot.x += CGFloat.random(min: -100, max: 100)
