@@ -30,6 +30,7 @@
 		7473BE541BB6D308004E773F /* image-11.png in Resources */ = {isa = PBXBuildFile; fileRef = 7473BE531BB6D308004E773F /* image-11.png */; settings = {ASSET_TAGS = (); }; };
 		7473BE5A1BB6D3F6004E773F /* present.png in Resources */ = {isa = PBXBuildFile; fileRef = 7473BE591BB6D3F6004E773F /* present.png */; settings = {ASSET_TAGS = (); }; };
 		7473BE601BB74191004E773F /* background2.png in Resources */ = {isa = PBXBuildFile; fileRef = 7473BE5F1BB74191004E773F /* background2.png */; settings = {ASSET_TAGS = (); }; };
+		74ED9ED61BBC595200621015 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74ED9ED51BBC595200621015 /* Social.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,7 @@
 		7473BE531BB6D308004E773F /* image-11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "image-11.png"; sourceTree = "<group>"; };
 		7473BE591BB6D3F6004E773F /* present.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = present.png; sourceTree = "<group>"; };
 		7473BE5F1BB74191004E773F /* background2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background2.png; sourceTree = "<group>"; };
+		74ED9ED51BBC595200621015 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74ED9ED61BBC595200621015 /* Social.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,6 +138,7 @@
 		743990881BAB64AC00CBFA85 = {
 			isa = PBXGroup;
 			children = (
+				74ED9ED51BBC595200621015 /* Social.framework */,
 				743990931BAB64AC00CBFA85 /* SantaVsEvilElf */,
 				743990AC1BAB64AC00CBFA85 /* SantaVsEvilElfTests */,
 				743990B71BAB64AC00CBFA85 /* SantaVsEvilElfUITests */,
@@ -257,6 +261,7 @@
 				TargetAttributes = {
 					743990901BAB64AC00CBFA85 = {
 						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = Y4X5LPU753;
 					};
 					743990A81BAB64AC00CBFA85 = {
 						CreatedOnToolsVersion = 7.0;
@@ -479,10 +484,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SantaVsEvilElf/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dotsncoms.SantaVsEvilElf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -490,10 +498,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SantaVsEvilElf/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dotsncoms.SantaVsEvilElf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

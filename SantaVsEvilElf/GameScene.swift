@@ -9,6 +9,13 @@
 import SpriteKit
 import AVFoundation
 
+    var scoreLabel: SKLabelNode!
+    var score: Int = 0 {
+    didSet {
+    scoreLabel.text = "Score: \(score)"
+    }
+}
+
 class GameScene: SKScene {
     
     let santa: SKSpriteNode = SKSpriteNode(imageNamed: "santa1")
@@ -29,16 +36,12 @@ class GameScene: SKScene {
         "hitCatLady.wav", waitForCompletion: false)
     var invincible = false
     let presentMovePointsPerSec:CGFloat = 480.0
-    var scoreLabel: SKLabelNode!
+    
     let backgroundMovePointsPerSec: CGFloat = 200.0
     let backgroundLayer = SKNode()
 
     var gameOver = false
-    var score: Int = 0 {
-        didSet {
-            scoreLabel.text = "Score: \(score)"
-        }
-    }
+
     var santaLivies: SKLabelNode!
     var life: Int = 5 {
         didSet {
@@ -182,11 +185,11 @@ class GameScene: SKScene {
         if life <= 0 && !gameOver {
         gameOver = true
         backgroundMusicP.stop()
-            
-            let gameOverScene = GameOver(size: size, won: false)
+
+        let gameOverScene = GameOver(size: size, won: false)
             gameOverScene.scaleMode = scaleMode
             
-            let reveal = SKTransition.flipHorizontalWithDuration(0.5)
+        let reveal = SKTransition.flipHorizontalWithDuration(0.5)
             view?.presentScene(gameOverScene, transition: reveal)
         }
     }
@@ -412,7 +415,7 @@ class GameScene: SKScene {
             
         }
         
-        if score >= 30 && !gameOver {
+        if score >= 99 && !gameOver {
             gameOver = true
             backgroundMusicP.stop()
         
@@ -422,6 +425,7 @@ class GameScene: SKScene {
             let reveal = SKTransition.flipHorizontalWithDuration(0.5)
            
             view?.presentScene(gameOverScene, transition: reveal)
+    
         }
     }
     
