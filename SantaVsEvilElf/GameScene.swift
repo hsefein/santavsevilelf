@@ -12,7 +12,7 @@ import AVFoundation
     var scoreLabel: SKLabelNode!
     var score: Int = 0 {
     didSet {
-    scoreLabel.text = "Score: \(score)"
+    scoreLabel.text = "Presents: \(score)"
     }
 }
 
@@ -45,7 +45,7 @@ class GameScene: SKScene {
     var santaLivies: SKLabelNode!
     var life: Int = 5 {
         didSet {
-            santaLivies.text = "Life: \(life)"
+            santaLivies.text = "Santa: \(life)"
         }
     }
     
@@ -113,7 +113,7 @@ class GameScene: SKScene {
                 SKAction.waitForDuration(1.0)])))
         
         scoreLabel = SKLabelNode(fontNamed: "Helvetica Neue Bold")
-        scoreLabel.text = "Score: 0"
+        scoreLabel.text = "Presents: 0"
         scoreLabel.fontSize = 50
         scoreLabel.fontColor = SKColor.redColor()
         scoreLabel.horizontalAlignmentMode = .Right
@@ -122,7 +122,7 @@ class GameScene: SKScene {
         addChild(scoreLabel)
         
         santaLivies = SKLabelNode(fontNamed: "Helvetica Neue Bold")
-        santaLivies.text = "Life: 5"
+        santaLivies.text = "Santa: 5"
         santaLivies.fontSize = 50
         santaLivies.fontColor = SKColor.redColor()
         santaLivies.horizontalAlignmentMode = .Left
@@ -166,7 +166,7 @@ class GameScene: SKScene {
         lastUpdateTime = currentTime
         
         if let lastTouch = lastTouchLocation {
-            let diff = lastTouch - santa.position
+            _ = lastTouch - santa.position
             /*if (diff.length() <= santaMovePointsPerSec * CGFloat(dt)) {
             santa.position = lastTouchLocation!
             velocity = CGPointZero
