@@ -33,7 +33,7 @@ class GameScene: SKScene {
     let presentCollisionSound: SKAction = SKAction.playSoundFileNamed(
         "hitCat.wav", waitForCompletion: false)
     let enemyCollisionSound: SKAction = SKAction.playSoundFileNamed(
-        "hitCatLady.wav", waitForCompletion: false)
+        "elf.mp3", waitForCompletion: false)
     var invincible = false
     let presentMovePointsPerSec:CGFloat = 480.0
     
@@ -167,14 +167,9 @@ class GameScene: SKScene {
         
         if let lastTouch = lastTouchLocation {
             _ = lastTouch - santa.position
-            /*if (diff.length() <= santaMovePointsPerSec * CGFloat(dt)) {
-            santa.position = lastTouchLocation!
-            velocity = CGPointZero
-            stopSantaAnimation()
-            } else {*/
+
             moveSprite(santa, velocity: velocity)
             rotateSprite(santa, direction: velocity, rotateRadiansPerSec: santaRotateRadiansPerSec)
-            //}
         }
         
         boundsCheckSanta()
@@ -345,8 +340,8 @@ class GameScene: SKScene {
         
         invincible = true
         
-        let blinkTimes = 10.0
-        let duration = 3.0
+        let blinkTimes = 5.0
+        let duration = 2.0
         let blinkAction = SKAction.customActionWithDuration(duration) { node, elapsedTime in
             let slice = duration / blinkTimes
             let remainder = Double(elapsedTime) % slice
@@ -447,33 +442,5 @@ class GameScene: SKScene {
             }
         }
     }
-    
-//    func losePresents() {
-//        
-//        var loseCount = 0
-//        backgroundLayer.enumerateChildNodesWithName("train") { node, stop in
-//            
-//            var randomSpot = node.position
-//            randomSpot.x += CGFloat.random(min: -100, max: 100)
-//            randomSpot.y += CGFloat.random(min: -100, max: 100)
-//           
-//            node.name = ""
-//            node.runAction(
-//                SKAction.sequence([
-//                    SKAction.group([
-//                        SKAction.rotateByAngle(π*4, duration: 1.0),
-//                        SKAction.moveTo(randomSpot, duration: 1.0),
-//                        SKAction.scaleTo(0, duration: 1.0)
-//                        ]),
-//                    SKAction.removeFromParent()
-//                    ]))
-//            
-//            loseCount++
-//            if loseCount >= 1 {
-//                stop.memory = true
-//            }
-//        }
-//    
-//    }
     
 }

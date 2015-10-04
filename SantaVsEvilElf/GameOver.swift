@@ -24,13 +24,11 @@ class GameOver: SKScene {
         super.init(size: size)
 }
     
-
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
 }
     
     @IBOutlet weak var shareImg: UIImageView!
-
 
     override func didMoveToView(view: SKView) {
         
@@ -48,14 +46,13 @@ class GameOver: SKScene {
             var youLose: SKLabelNode!
             
             youLose = SKLabelNode(fontNamed: "Chalkduster")
-            youLose.text = "YOU LOSE!"
+            youLose.text = "Merry Christmas!"
             youLose.fontSize = 100
             youLose.fontColor = SKColor.redColor()
             youLose.horizontalAlignmentMode = .Left
-            youLose.position = CGPoint(x: 650, y: 950)
+            youLose.position = CGPoint(x: 550, y: 950)
             youLose.zPosition = 1
             addChild(youLose)
-            
             
             scoreLabel = SKLabelNode(fontNamed: "Helvatica")
             scoreLabel.text = "Presents Collected: \(score)"
@@ -66,17 +63,14 @@ class GameOver: SKScene {
             scoreLabel.zPosition = 100
             addChild(scoreLabel)
             
-            
-            
             runAction(SKAction.sequence([
                 SKAction.waitForDuration(0.2),
-                SKAction.playSoundFileNamed("lose.wav",
+                SKAction.playSoundFileNamed("lose.mp3",
                     waitForCompletion: false)
                 ]))
+    
 
         }
-        
-        
         
         background.position =
             CGPoint(x: self.size.width/2, y: self.size.height/2)
@@ -94,21 +88,26 @@ class GameOver: SKScene {
         
     }
     
-    // FACEBOOK BUTTON
-    @IBAction func facebookButt(sender: AnyObject) {
-        if SLComposeViewController.isAvailableForServiceType(SLServiceTypeFacebook) {
-            let fb = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
-            fb.setInitialText("I have collected \(score) presents!")
-            fb.addImage(shareImg.image)
-            fb.presentViewController(fb, animated: true, completion: nil)
-        }else {
-            let alert = UIAlertView(title: "Facebook",
-                message: "Please login to your Facebook account in Settings",
-                delegate: nil,
-                cancelButtonTitle: "OK")
-            alert.show()
-        }
-    }
+    
+//    // FACEBOOK BUTTON
+//    @IBAction func facebookButt(sender: AnyObject) {
+//        if SLComposeViewController.isAvailableForServiceType(SLServiceTypeFacebook) {
+//            let fb = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
+//            fb.setInitialText("I have collected \(score) presents!")
+//            fb.addImage(shareImg.image)
+//            presentViewController(fb, animated: true, completion: nil)
+//        }else {
+//            let alert = UIAlertController(title: "Facebook",
+//                message: "Please login to your Facebook account in Settings",
+//                preferredStyle: .Alert)
+//            
+//            let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
+//            alert.addAction(action)
+//            self.presentViewController, animated: true, completion: nil)
+//        }
+//    }
+    
+
     
     
 }
