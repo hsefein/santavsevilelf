@@ -89,23 +89,23 @@ class GameOver: SKScene {
     }
     
     
-//    // FACEBOOK BUTTON
-//    @IBAction func facebookButt(sender: AnyObject) {
-//        if SLComposeViewController.isAvailableForServiceType(SLServiceTypeFacebook) {
-//            let fb = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
-//            fb.setInitialText("I have collected \(score) presents!")
-//            fb.addImage(shareImg.image)
-//            presentViewController(fb, animated: true, completion: nil)
-//        }else {
-//            let alert = UIAlertController(title: "Facebook",
-//                message: "Please login to your Facebook account in Settings",
-//                preferredStyle: .Alert)
-//            
-//            let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
-//            alert.addAction(action)
-//            self.presentViewController, animated: true, completion: nil)
-//        }
-//    }
+    // FACEBOOK BUTTON
+    @IBAction func facebookButt(sender: AnyObject) {
+        if SLComposeViewController.isAvailableForServiceType(SLServiceTypeFacebook) {
+            let fb = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
+            fb.setInitialText("I have collected \(score) presents!")
+            fb.addImage(shareImg.image)
+            self.presentViewController(fb, animated: true, completion: nil)
+        }else {
+            let alert = UIAlertController(title: "Facebook",
+                message: "Please login to your Facebook account in Settings",
+                preferredStyle: .Alert)
+            
+            let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
+            alert.addAction(action)
+            self.presentViewController(action, animated: true, completion: nil)
+        }
+    }
     
 
     
